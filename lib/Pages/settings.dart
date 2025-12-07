@@ -30,7 +30,7 @@ class _SettingsState extends State<Settings> {
       ),
       body: Column(
         children: [
-          FlatButton.icon(
+          TextButton.icon(
             onPressed: () {
               showAboutDialog(
                   context: context,
@@ -45,7 +45,7 @@ class _SettingsState extends State<Settings> {
                   ),
                   applicationLegalese: applicationLegalese,
                   children: [
-                    FlatButton.icon(
+                    TextButton.icon(
                       onPressed: _launchURL,
                       icon: ImageIcon(
                         AssetImage('Assets/Images/GPL-V3_License_Logo.png'),
@@ -67,10 +67,9 @@ class _SettingsState extends State<Settings> {
 }
 
 _launchURL() async {
-  const url = 'https://www.gnu.org/licenses';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
+  final Uri url = Uri.parse('https://www.gnu.org/licenses');
+  // Use launchUrl which accepts a Uri in newer url_launcher versions
+  if (!await launchUrl(url)) {
     throw 'Could not launch $url';
   }
 }

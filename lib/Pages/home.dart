@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -21,12 +20,13 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
+    final routeData = ModalRoute.of(context)?.settings.arguments as Map?;
+    data = data.isNotEmpty ? data : (routeData ?? {});
 
     print('(home.dart)VAR_DUMP-data $data');
-    String bgImage = data['isDaytime'] ? 'Daytime_Image.jpg' : 'Night_Image.jpg';
-    Color bgColor = data['isDaytime'] ? Colors.blue[900] : Colors.indigo[900];
-    Color txtColor = data['isDaytime'] ? Colors.black : Colors.white;
+    String bgImage = (data['isDaytime'] ?? false) ? 'Daytime_Image.jpg' : 'Night_Image.jpg';
+    Color bgColor = (data['isDaytime'] ?? false) ? Colors.blue[900]! : Colors.indigo[900]!;
+    Color txtColor = (data['isDaytime'] ?? false) ? Colors.black : Colors.white;
 
 
     return Scaffold(
@@ -43,7 +43,8 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.fromLTRB(0, 120.0, 0, 0),
               child: Column(
               children: [
-                FlatButton.icon(
+                TextButton.icon(
+                    style: TextButton.styleFrom(foregroundColor: txtColor),
                     onPressed: (){
                       Navigator.pushNamed(context, '/settings');
                     },
@@ -51,14 +52,10 @@ class _HomeState extends State<Home> {
                         Icons.settings,
                         color: txtColor,
                     ),
-                    label: Text(
-                        'Settings',
-                        style: TextStyle(
-                        color: txtColor
-                    ),
-                    )
+                    label: Text('Settings')
                 ),
-                FlatButton.icon(
+                TextButton.icon(
+                    style: TextButton.styleFrom(foregroundColor: txtColor),
                     onPressed: () async {
                     dynamic result =  await Navigator.pushNamed(context, '/location');
                     setState(() {
@@ -74,12 +71,7 @@ class _HomeState extends State<Home> {
                         Icons.edit_location,
                         color: txtColor,
                     ),
-                    label: Text(
-                        "Edit Location",
-                        style: TextStyle(
-                          color: txtColor
-                        ),
-                    ),
+                    label: Text("Edit Location")
                 ),
                 SizedBox(height: 20.0,),
                 Row(
