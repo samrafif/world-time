@@ -20,3 +20,7 @@ this was my first app in Flutter
 # [02:12.476] Da-da-da-da-da-da, da-da-da, da
 # [02:15.967] Da-da-da-da-da-da, da-da-da
 # [02:19.526] These sweet instincts ruin my life
+# HES JUST A BABY HOW COULD YOU
+<img width="1071" height="757" alt="image" src="https://github.com/user-attachments/assets/c0fff505-95aa-4785-9883-c96045ebfbba" />
+
+pardon my illness
