@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:world_time/State/app_state.dart';
 
 
 /*
@@ -29,6 +31,8 @@ class _HomeState extends State<Home> {
     Color txtColor = (data['isDaytime'] ?? false) ? Colors.black : Colors.white;
 
 
+    final appState = Provider.of<AppState>(context);
+
     return Scaffold(
       backgroundColor: bgColor,
       body: SafeArea(child:
@@ -43,6 +47,27 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.fromLTRB(0, 120.0, 0, 0),
               child: Column(
               children: [
+                // Simple state-managed controls
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //Text('Counter: ${appState.counter}', style: TextStyle(color: txtColor)),
+                      Row(
+                        children: [
+                          Text('Dark', style: TextStyle(color: txtColor)),
+                          Switch(
+                            value: appState.darkMode,
+                            onChanged: (_) => appState.toggleDarkMode(),
+                            activeColor: Colors.white,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 12.0),
                 TextButton.icon(
                     style: TextButton.styleFrom(foregroundColor: txtColor),
                     onPressed: (){
@@ -99,6 +124,10 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Provider.of<AppState>(context, listen: false).increment(),
+        child: Icon(Icons.add),
       ),
     );
   }

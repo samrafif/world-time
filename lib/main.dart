@@ -3,18 +3,30 @@ import 'package:world_time/pages/home.dart';
 import 'package:world_time/pages/loading.dart';
 import 'package:world_time/pages/choose_location.dart';
 import 'package:world_time/pages/settings.dart';
+import 'package:provider/provider.dart';
+import 'package:world_time/State/app_state.dart';
 
 void main() {
-  runApp(MaterialApp(
-    title: 'World Time',
-    initialRoute: '/',
-    routes: {
-      '/': (context) => Loading(),
-      '/home': (context) => Home(),
-      '/location': (context) => ChooseLocation(),
-      '/settings': (context) => Settings()
-    },
-  ));
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => AppState(),
+      child: Consumer<AppState>(
+        builder: (context, appState, _) {
+          return MaterialApp(
+            title: 'World Time',
+            theme: appState.darkMode ? ThemeData.dark() : ThemeData(primarySwatch: Colors.blue),
+            initialRoute: '/',
+            routes: {
+              '/': (context) => Loading(),
+              '/home': (context) => Home(),
+              '/location': (context) => ChooseLocation(),
+              '/settings': (context) => Settings()
+            },
+          );
+        },
+      ),
+    ),
+  );
 }
 // # [01:22.201] Rebooting soon as I am a-a-able
 // # [01:26.109] Every other day, I'm wonderin'
